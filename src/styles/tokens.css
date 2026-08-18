@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+    /* Couleurs - Direction artistisue de Korumm */
+    --color-ink: #14182B;
+    --color-ink-2: #1D2238;
+    --color-dune: #EDE7D8;
+    --color-dune-2: #E3DCC8;
+    --color-brass: #B98A34;
+    --color-brass-light: #D9B872;
+    --color-teal: #1F7A6C;
+    --color-teal-light: #4FA595;
+    --color-brick: #C1503A;
+    --color-slate: #9AA0B4;
+
+    /* Typographie */
+    --font-family: 'Fraunces', serif;
+    --font-body: 'IBM Plex Sans', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+}
