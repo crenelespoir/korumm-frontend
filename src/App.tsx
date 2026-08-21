@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, useNavigate} from "react-router-dom";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 import { useState } from "react";
 import { useEvents } from "./hooks/useEvents";
 import { useAuth } from "./hooks/useAuth";
@@ -92,7 +93,28 @@ function LoginPage() {
 }
 
 function DashboardPage() {
-  return <div className="p-8 font-display text-2xl">Dashboard organisateur (à venir)</div>
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    logout();
+    navigate("/login");
+  }
+
+  return (
+    <div className="p-8">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="font-display text-2xl text-brass-light">Dashboard Organisateur</h1>
+        <button
+          onClick={handleLogout}
+          className="font-mono text-sm text-slate hover:text-brick transition-colors"
+        >
+          Se déconnecter
+        </button>
+      </div>
+      <p className="text-slate">Contenu à venir</p>
+    </div>
+  )
 }
 
 function App() {
@@ -101,7 +123,14 @@ function App() {
       <Routes>
         <Route path="/" element={<EventsListPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route 
+          path="/dashboard" 
+          element={
+            <ProtectedRoute>
+              <DashboardPage />
+            </ProtectedRoute>
+          } 
+          />
       </Routes>
     </BrowserRouter>
   );
