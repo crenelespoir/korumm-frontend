@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useEvents } from '../hooks/useEvents';
 import { EventCard } from '../components/EventCard';
 
@@ -15,7 +16,9 @@ export function EventsListPage() {
       <h1 className="font-display text-3xl text-brass-light mb-6">Événements à venir</h1>
       <div className="flex flex-col gap-4">
         {events.map((event) => (
-          <EventCard key={event.id} event={event} />
+          <Link key={event.id} to={`/events/${event.id}`}>
+            <EventCard event={event} />
+          </Link>
         ))}
       </div>
     </div>

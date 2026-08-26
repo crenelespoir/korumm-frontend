@@ -73,6 +73,7 @@ export function EventDetailPage() {
             <div>
               <div className="text-sm text-dune">{p.participantNom}</div>
               <div className="font-mono text-[11px] text-slate">{p.participantEmail}</div>
+              <div className="font-mono text-[10px] text-slate/60">{p.qrCode}</div>
             </div>
             <StatusBadge statut={p.statut} />
           </div>

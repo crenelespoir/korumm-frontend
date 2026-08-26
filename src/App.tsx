@@ -5,6 +5,8 @@ import { DashboardPage } from "./pages/DashboardPage";
 import { EventsListPage } from "./pages/EventsListPage";
 import { CreateEventPage } from "./pages/CreateEventPage";
 import { EventDetailPage } from "./pages/EventDetailPage";
+import { CheckinScanPage } from "./pages/CheckinScanPage";
+import { PublicEventPage } from "./pages/PublicEventPage";
 
 
 function App() {
@@ -13,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<EventsListPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/events/:id" element={<PublicEventPage />} />
         <Route 
           path="/dashboard" 
           element={
@@ -37,7 +40,14 @@ function App() {
             </ProtectedRoute>
           }
           />
-          
+
+          <Route path="/dashboard/events/:id/scan"
+          element={
+            <ProtectedRoute>
+              <CheckinScanPage />
+            </ProtectedRoute>
+          }
+          />
       </Routes>
     </BrowserRouter>
   );
