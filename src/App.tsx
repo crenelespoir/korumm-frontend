@@ -7,7 +7,7 @@ import { CreateEventPage } from "./pages/CreateEventPage";
 import { EventDetailPage } from "./pages/EventDetailPage";
 import { CheckinScanPage } from "./pages/CheckinScanPage";
 import { PublicEventPage } from "./pages/PublicEventPage";
-
+import { FeedbackPage } from "./pages/FeedbackPage";
 
 function App() {
   return (
@@ -16,6 +16,7 @@ function App() {
         <Route path="/" element={<EventsListPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/events/:id" element={<PublicEventPage />} />
+        <Route path="/feedback/:participationId" element={<FeedbackPage />} /> 
         <Route 
           path="/dashboard" 
           element={
