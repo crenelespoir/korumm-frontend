@@ -1,5 +1,6 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useFeedbacks } from '../hooks/useFeedbacks';
 import api from '../lib/api';
 import type { Event } from '../lib/types';
 import { useParticipations } from '../hooks/useParticipations';
@@ -10,6 +11,7 @@ export function EventDetailPage() {
   const navigate = useNavigate();
   const [event, setEvent] = useState<Event | null>(null);
   const { participations, loading: loadingParticipations } = useParticipations(id);
+  const { feedbacks, loading: loadingFeedbacks } = useFeedbacks(id);
 
   useEffect(() => {
     if (!id) return;
@@ -78,6 +80,26 @@ export function EventDetailPage() {
             <StatusBadge statut={p.statut} />
           </div>
         ))}
+
+        <h2 className="font-display text-lg text-dune mb-3 mt-10">Retours des participants</h2>
+
+{loadingFeedbacks && <p className="text-slate text-sm">Chargement…</p>}
+
+{!loadingFeedbacks && feedbacks.length === 0 && (
+  <p className="text-slate text-sm">Aucun retour pour l'instant.</p>
+)}
+
+<div className="flex flex-col gap-2">
+  {feedbacks.map((f) => (
+    <div key={f.id} className="bg-ink-2 rounded px-4 py-3">
+      <div className="flex items-center justify-between mb-1">
+        <span className="text-sm text-dune">{f.participation.participantNom}</span>
+        <span className="font-mono text-xs text-brass-light">{f.note}/5</span>
+      </div>
+      {f.commentaire && <p className="text-sm text-slate">{f.commentaire}</p>}
+    </div>
+  ))}
+</div>
       </div>
     </div>
   );
