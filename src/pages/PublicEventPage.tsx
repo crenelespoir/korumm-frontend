@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Navigate } from 'react-router-dom';
 import api from '../lib/api';
 import type { Event } from '../lib/types';
 
@@ -11,7 +11,7 @@ export function PublicEventPage() {
   const [participantTel, setParticipantTel] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<{ paymentUrl: string | null } | null>(null);
+  const [success, setSuccess] = useState<{ participationId: string } | null>(null);
 
   useEffect(() => {
     if (!id) return;
@@ -34,7 +34,7 @@ export function PublicEventPage() {
       if (res.data.paymentUrl) {
         window.location.href = res.data.paymentUrl;
       } else {
-        setSuccess({ paymentUrl: null });
+        setSuccess({ participationId: res.data.participation.id });
       }
     } catch (err: any) {
       setError(err.response?.data?.message ?? 'Impossible de s\'inscrire');
@@ -46,17 +46,7 @@ export function PublicEventPage() {
   if (!event) return <div className="p-8 text-slate">Chargement…</div>;
 
   if (success) {
-    return (
-      <div className="p-8 max-w-md mx-auto text-center">
-        <h1 className="font-display text-2xl text-teal-light mb-2">Inscription confirmée</h1>
-        <p className="text-slate mb-6">
-          Tu recevras ton QR code d'entrée par email. À bientôt pour « {event.titre} ».
-        </p>
-        <Link to="/" className="font-mono text-xs text-brass-light hover:text-brass">
-          ← Voir d'autres événements
-        </Link>
-      </div>
-    );
+    return <Navigate to={`/ticket/${success.participationId}`} replace />; 
   }
 
   const inputClass =

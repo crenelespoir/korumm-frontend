@@ -8,6 +8,7 @@ import { EventDetailPage } from "./pages/EventDetailPage";
 import { CheckinScanPage } from "./pages/CheckinScanPage";
 import { PublicEventPage } from "./pages/PublicEventPage";
 import { FeedbackPage } from "./pages/FeedbackPage";
+import { TicketPage } from "./pages/TicketPage";
 
 function App() {
   return (
@@ -39,6 +40,12 @@ function App() {
             <ProtectedRoute>
               <EventDetailPage />
             </ProtectedRoute>
+          }
+          />
+
+          <Route path="/ticket/:id"
+          element={
+            <TicketPage />
           }
           />
 
